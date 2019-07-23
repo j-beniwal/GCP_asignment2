@@ -1,0 +1,54 @@
+##################################################################################################################################
+# Create a scalable serverless architecture to detect objects from the images immediately after being uploaded to a GCS bucket. 
+# The extracted information about the objects should be logged [optional: stored to datastore database]. 
+# The designed architecture should also have error handling.
+###################################################################################################################################
+
+The task need to be compleated into blow steps
+
+first create a bucket  ------> uploading an object to the bucket triggers the cloud function
+cloud function --------------> uses vision api for object detection 
+The api output info ---------> logged or strored to datastore database 
+
+Step 1. Created a bucket named j-bucket-objd
+Step 2. Created a cloud function j-cloud-objd
+Step 3. selec 512MB for memory allocation.
+step 4. In trigger select "cloud storage"
+step 5. In Event type select " Finalize/Create"
+step 6. Select the bucket "j-bucket-objd"
+step 7. Select Inline editor in Source code
+step 8. Runtime select "python 3.7"
+step 9. write the code 
+####################################################################################
+	from google.cloud import vision
+	def hello_gcs(event, context):
+    		"""Triggered by a change to a Cloud Storage bucket.
+    		Args:
+        		event (dict): Event payload.
+         		context (google.cloud.functions.Context): Metadata for the event.
+    		"""
+    		file = event
+    		print(f"Processing file: {file['name']}.")
+    		x=file['name']
+    
+   		client = vision.ImageAnnotatorClient()
+    		image = vision.types.Image()
+    
+    		uri = "gs://j-bucket-objd/" + x
+
+    		image.source.image_uri = uri
+
+    		response = client.label_detection(image=image)
+    		labels = response.label_annotations
+    		print('Labels:')
+
+    		for label in labels:
+        	print(label.description)
+#####################################################################################
+step 10. In Advance options select region us-central1
+step 11. in Time out select "60"
+step 12. click on create to create the cloud function
+step 13. now upload a image containing objects in the bucket
+step 14. the output of the image can be seen in the logs of the cloud function
+step 15. the logs are exported to bigQuarty using a sink function.
+

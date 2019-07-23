@@ -1,0 +1,15 @@
+how the actual server inthe data centers is made
+Question 1.
+ Launch instance with only private ip and configure NAT so instance can access Internet. (Need to use network tags)
+
+
+Question 2. Configure Stackdriver monitoring on an AWS EC2 instance using the monitoring agent. Also explore how to monitor both AWS and GCP projects at a single place.
+
+
+Question 3. 
+ Create an instance with Linux OS of your choice. The instance should run apache server that displays your name when the webpage is accessed via a browser. The task should be completed without accessing the instance via SSH. Stop the instance (using CLI) and restart the instance (again using CLI) and check again if the apache server is running. View the log file of the server startup.
+
+
+Question 4.
+ Create a scalable serverless architecture to detect objects from the images immediately after being uploaded to a GCS bucket. The extracted information about the objects should be logged [optional: stored to datastore database]. The designed architecture should also have error handling.
+how the actual server inthe data centers is made
